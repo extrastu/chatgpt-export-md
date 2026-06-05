@@ -1,0 +1,27 @@
+.chatgpt-export-md-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+}
+
+.chatgpt-export-md-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.chatgpt-export-md-btn:hover {
+  background: rgba(127, 127, 127, 0.12);
+  color: var(--text-primary);
+}
