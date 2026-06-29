@@ -1,13 +1,24 @@
 # ChatGPT Message Markdown Exporter
 
-Adds a Markdown export button to the action bar of every ChatGPT response, so you can save a single message as a `.md` file with one click.
+Adds Markdown export buttons to the ChatGPT message action bar and page header, allowing you to save a single message or the entire conversation session as a `.md` file with one click.
+
+## Screenshots
+
+### Single Message Export
+
+![Single Message Export](images/chatgpt-export-md.png)
+
+### Entire Session Export
+
+![Entire Session Export](images/chatgpt-export-session-md.png)
 
 ## Features
 
-- Injects a Markdown export icon into each ChatGPT response action bar
-- Reuses ChatGPT's native **Copy** action, so exported content matches what gets copied to the clipboard
-- Names files automatically using the current conversation title plus a timestamp
-- Supports both Chinese and English UI (`chatgpt.com` / `chat.openai.com`)
+- **Export Single Message**: Injects a Markdown export icon into each ChatGPT response action bar, leveraging ChatGPT's native clipboard copy capabilities for maximum accuracy.
+- **Export Entire Session**: Injects a global export icon into the header action bar (`#conversation-header-actions`) to save the entire conversation history.
+- **High-Fidelity DOM Parser**: Includes a built-in, lightweight HTML-to-Markdown engine that supports paragraphs, headings, blockquotes, lists (ordered/unordered), code blocks, GFM tables, and KaTeX mathematical formulas.
+- **Automatic Naming**: Automatically names downloaded files using the active conversation title and a timestamp.
+- **Multilingual UI Support** (`chatgpt.com` / `chat.openai.com`).
 
 ## Installation
 
@@ -20,19 +31,25 @@ Adds a Markdown export button to the action bar of every ChatGPT response, so yo
 
 ## Usage
 
-1. Open [ChatGPT](https://chatgpt.com) and go to any conversation
-2. Find the Markdown icon button in the action bar below each response
-3. Click the button to download the corresponding `.md` file
+1. Open [ChatGPT](https://chatgpt.com) and go to any conversation.
+2. **Export Single Message**: Find and click the Markdown icon button in the action bar below each response.
+3. **Export Entire Session**: Find and click the global Markdown icon button in the top-right header actions bar (next to the share button).
+4. The browser will automatically download the corresponding `.md` file.
 
-Hover over the button for a tooltip. Success, failure, and missing-copy-button states are also shown via the tooltip.
+Hover over the buttons for a tooltip. Success, failure, and busy states are shown via tooltips.
 
 ## How It Works
 
-The extension uses a content script to watch DOM changes and inject an export button into each response action bar. When clicked, it:
+The extension watches DOM changes and dynamically injects export buttons. When clicked:
 
-1. Triggers ChatGPT's built-in copy button
-2. Reads the Markdown content from the clipboard
-3. Creates a Blob and starts a local download
+- **Single Message Export**:
+  1. Triggers ChatGPT's native Copy button for the message.
+  2. Reads the generated Markdown from the system clipboard.
+  3. Creates a Blob and downloads it locally.
+- **Entire Session Export**:
+  1. Enumerates all chat turns (including user prompts and assistant responses) in the page.
+  2. Recursively parses the DOM tree using the built-in formatter, mapping formatting elements (paragraphs, tables, lists, code, LaTeX math) into Markdown.
+  3. Combines all parts and downloads the `.md` file. (This process runs entirely client-side and does not alter the user's system clipboard).
 
 ## Project Structure
 
@@ -64,8 +81,8 @@ After changing code, click **Reload** on the extensions page to apply updates.
 
 ## Permissions
 
-| Permission | Purpose |
-|------------|---------|
+| Permission       | Purpose                                                             |
+| ---------------- | ------------------------------------------------------------------- |
 | `clipboardWrite` | Used with the copy flow to read Markdown content from the clipboard |
 
 ## Compatibility
