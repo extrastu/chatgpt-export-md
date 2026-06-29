@@ -1,0 +1,161 @@
+:root,body,html{--chatdown-dropdown-bg: rgba(240, 245, 255, .75);--chatdown-dropdown-border: rgba(180, 200, 240, .4);--chatdown-dropdown-shadow: 0 8px 32px rgba(0, 40, 120, .08);--chatdown-dropdown-text: #1e293b;--chatdown-dropdown-hover-bg: rgba(59, 130, 246, .08)}body.dark,body.dark-mode,.dark,[class*=dark]{--chatdown-dropdown-bg: rgba(15, 23, 42, .75);--chatdown-dropdown-border: rgba(59, 130, 246, .25);--chatdown-dropdown-shadow: 0 8px 32px rgba(0, 0, 0, .4);--chatdown-dropdown-text: #f1f5f9;--chatdown-dropdown-hover-bg: rgba(59, 130, 246, .15)}
+
+.x1717udv {
+  padding: 0;
+}
+
+.xfawy5m {
+  padding: 4px;
+}
+
+.x153ncpu {
+  padding: 8px 12px;
+}
+
+.x1kogg8i:not(#\#) {
+  border-radius: 6px;
+}
+
+.xur7f20:not(#\#) {
+  border-radius: 8px;
+}
+
+.x167g77z:not(#\#) {
+  gap: 8px;
+}
+
+.xxpotqc:not(#\#) {
+  transition: background-color .1s, color .1s;
+}
+
+.xxksqoq:not(#\#) {
+  transition: background-color .1s;
+}
+
+.x1lfvz1t:not(#\#) {
+  transition: opacity .15s, transform .15s;
+}
+
+.x6s0dn4:not(#\#):not(#\#) {
+  align-items: center;
+}
+
+.x5l1use:not(#\#):not(#\#) {
+  backdrop-filter: blur(12px) saturate(1.25);
+}
+
+.xft4h90:not(#\#):not(#\#) {
+  background-color: #7f7f7f1f;
+}
+
+.xjbqb8w:not(#\#):not(#\#) {
+  background-color: #0000;
+}
+
+.xh2pgu:not(#\#):not(#\#) {
+  box-shadow: var(--chatdown-dropdown-shadow, 0 8px 32px #00287814);
+}
+
+.x1heor9g:not(#\#):not(#\#) {
+  color: inherit;
+}
+
+.x3c9y81:not(#\#):not(#\#) {
+  color: var(--chatdown-dropdown-text, #1e293b);
+}
+
+.xw2npq5:not(#\#):not(#\#) {
+  color: var(--text-primary);
+}
+
+.xhgddhk:not(#\#):not(#\#) {
+  color: var(--text-secondary);
+}
+
+.x1ypdohk:not(#\#):not(#\#) {
+  cursor: pointer;
+}
+
+.x78zum5:not(#\#):not(#\#) {
+  display: flex;
+}
+
+.x3nfvp2:not(#\#):not(#\#) {
+  display: inline-flex;
+}
+
+.xdt5ytf:not(#\#):not(#\#) {
+  flex-direction: column;
+}
+
+.x2lah0s:not(#\#):not(#\#) {
+  flex-shrink: 0;
+}
+
+.xjb2p0i:not(#\#):not(#\#) {
+  font-family: inherit;
+}
+
+.xif65rj:not(#\#):not(#\#) {
+  font-size: 14px;
+}
+
+.xl56j7k:not(#\#):not(#\#) {
+  justify-content: center;
+}
+
+.xg01cxk:not(#\#):not(#\#) {
+  opacity: 0;
+}
+
+.x1hc1fzr:not(#\#):not(#\#) {
+  opacity: 1;
+}
+
+.x10l6tqk:not(#\#):not(#\#) {
+  position: absolute;
+}
+
+.x1jec706:not(#\#):not(#\#) {
+  transform: scale(.95);
+}
+
+.x3oybdh:not(#\#):not(#\#) {
+  transform: scale(1);
+}
+
+.x1lbixdm:not(#\#):not(#\#) {
+  z-index: 99999;
+}
+
+.xlup9mm:not(#\#):not(#\#):not(#\#) {
+  height: 16px;
+}
+
+.x1fgtraw:not(#\#):not(#\#):not(#\#) {
+  height: 28px;
+}
+
+.x10w6t97:not(#\#):not(#\#):not(#\#) {
+  height: 32px;
+}
+
+.xet2fuk:not(#\#):not(#\#):not(#\#) {
+  margin-left: 8px;
+}
+
+.xfb3i0g:not(#\#):not(#\#):not(#\#) {
+  min-width: 180px;
+}
+
+.x1kky2od:not(#\#):not(#\#):not(#\#) {
+  width: 16px;
+}
+
+.xgd8bvy:not(#\#):not(#\#):not(#\#) {
+  width: 28px;
+}
+
+.x1td3qas:not(#\#):not(#\#):not(#\#) {
+  width: 32px;
+}

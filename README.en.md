@@ -21,22 +21,29 @@ Save single ChatGPT messages or entire conversation sessions as Markdown (.md) f
 - **High-Quality Image Rendering**: Powered by `html2canvas-pro`, it strips redundant UI overlays (such as copy/export buttons), supports both light and dark mode styles, and renders a clean, subtle `ChatDown` watermark at the bottom of the exported image.
 - **Multilingual UI Support** (`chatgpt.com` / `chat.openai.com`).
 
-## Development & Installation
+## Installation & Development
 
-This project has been refactored into a React + Vite + StyleX architecture. You need to build the project before loading it into your browser:
+### 🚀 Regular Users (Direct Installation)
+The latest production build is pre-compiled and tracked under the **`dist`** directory in this repository. You do not need to compile it yourself:
 
-1. Clone or download this repository.
-2. Install dependencies in the project root:
+1. Download or clone this repository to your local machine.
+2. Open your Chromium-based browser (Chrome, Edge, Arc, etc.) and navigate to the extensions management page (e.g. type `chrome://extensions` in Chrome's address bar).
+3. Enable **"Developer mode"** in the top right corner.
+4. Click **"Load unpacked"** in the top left corner.
+5. In the file selection pop-up, select the **`dist`** folder of this project to load and activate the extension!
+
+### 🛠️ Developers (Local Building)
+If you wish to modify the source code and rebuild the project (which is built using React + Vite + StyleX):
+
+1. Install dependencies in the project root:
    ```bash
    npm install
    ```
-3. Run the build script:
+2. Run the build script:
    ```bash
    npm run build
    ```
-4. Open your Chromium-based browser (Chrome, Edge, Arc, etc.) and navigate to the extensions page (`chrome://extensions`).
-5. Enable **Developer mode** in the top right corner.
-6. Click **Load unpacked** and select the **`dist`** directory (the built production asset folder) in the project.
+3. After building, click the **Reload/Refresh** icon on the extension card in the extensions page to apply the latest changes.
 
 ## Project Structure
 
