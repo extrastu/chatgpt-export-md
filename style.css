@@ -25,3 +25,32 @@
   background: rgba(127, 127, 127, 0.12);
   color: var(--text-primary);
 }
+
+.chatgpt-export-session-md-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin-left: 8px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  cursor: pointer;
+}
+
+.chatgpt-export-session-md-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.chatgpt-export-session-md-btn:hover {
+  background: rgba(127, 127, 127, 0.12);
+  color: var(--text-primary);
+}
