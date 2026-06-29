@@ -1,0 +1,22 @@
+/* ChatDown Global Stylesheet & StyleX Entry Point */
+
+:root,
+body,
+html {
+  --chatdown-dropdown-bg: rgba(240, 245, 255, 0.75);
+  --chatdown-dropdown-border: rgba(180, 200, 240, 0.4);
+  --chatdown-dropdown-shadow: 0 8px 32px rgba(0, 40, 120, 0.08);
+  --chatdown-dropdown-text: #1e293b;
+  --chatdown-dropdown-hover-bg: rgba(59, 130, 246, 0.08);
+}
+
+body.dark,
+body.dark-mode,
+.dark,
+[class*="dark"] {
+  --chatdown-dropdown-bg: rgba(15, 23, 42, 0.75);
+  --chatdown-dropdown-border: rgba(59, 130, 246, 0.25);
+  --chatdown-dropdown-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --chatdown-dropdown-text: #f1f5f9;
+  --chatdown-dropdown-hover-bg: rgba(59, 130, 246, 0.15);
+}

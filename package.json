@@ -2,9 +2,21 @@
   "name": "chatdown",
   "version": "1.0.0",
   "description": "Export ChatGPT messages and sessions as Markdown or rich-text PNG images.",
-  "main": "content.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build && mkdir -p dist && cp manifest.json dist/ && cp -r icons lib dist/",
+    "watch": "vite build --watch"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "^0.18.0",
+    "@stylexjs/unplugin": "^0.18.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.1"
   },
   "keywords": [],
   "author": "extrastu",
