@@ -201,6 +201,21 @@ function renderElementToPng(elementToRender, filename, exportBtn, isSession = fa
   `).forEach(el => el.remove());
   
   container.appendChild(clone);
+
+  // Add watermark at the bottom of the container
+  const watermark = document.createElement("div");
+  watermark.style.display = "flex";
+  watermark.style.justifyContent = "center";
+  watermark.style.alignItems = "center";
+  watermark.style.marginTop = "32px";
+  watermark.style.paddingTop = "16px";
+  watermark.style.borderTop = "1px solid rgba(127, 127, 127, 0.15)";
+  watermark.style.fontSize = "12px";
+  watermark.style.color = "rgba(127, 127, 127, 0.6)";
+  watermark.style.fontFamily = "inherit";
+  watermark.innerHTML = `Exported via &nbsp;<strong>ChatDown</strong>`;
+  container.appendChild(watermark);
+
   document.body.appendChild(container);
   
   setTimeout(() => {
@@ -261,7 +276,7 @@ function exportSessionPng(exportBtn) {
   titleText.style.color = "var(--text-primary, inherit)";
   
   const footerText = document.createElement("p");
-  footerText.textContent = `ChatGPT 会话导出 • ${new Date().toLocaleString()}`;
+  footerText.textContent = `ChatDown 会话导出 • ${new Date().toLocaleString()}`;
   footerText.style.fontSize = "12px";
   footerText.style.margin = "0";
   footerText.style.color = "var(--text-secondary, rgba(127, 127, 127, 0.7))";

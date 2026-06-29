@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT Message Markdown Exporter",
+  "name": "ChatDown",
   "version": "0.2.0",
-  "description": "Add Export Markdown button to every ChatGPT message.",
+  "description": "Export ChatGPT messages and sessions as Markdown or rich-text PNG images.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",

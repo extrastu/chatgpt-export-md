@@ -1,6 +1,6 @@
-# ChatGPT Message Markdown Exporter
+# ChatDown
 
-为 ChatGPT 回复操作栏和页面顶部操作栏添加 Markdown 导出按钮，一键将单条消息或整页对话会话保存为 `.md` 文件。
+一键将 ChatGPT 单条消息或整页对话会话保存为 Markdown (.md) 文件或富文本 PNG (.png) 图片。
 
 ## 截图
 

@@ -1,6 +1,6 @@
-# ChatGPT Message Markdown Exporter
+# ChatDown
 
-Adds Markdown export buttons to the ChatGPT message action bar and page header, allowing you to save a single message or the entire conversation session as a `.md` file with one click.
+Save single ChatGPT messages or entire conversation sessions as Markdown (.md) files or rich-text PNG (.png) images with one click.
 
 ## Screenshots
 
