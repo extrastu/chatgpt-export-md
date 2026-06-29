@@ -92,4 +92,4 @@ node scripts/generate-icons.mjs
 
 ## License
 
-ISC
+MIT

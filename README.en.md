@@ -92,4 +92,4 @@ After changing code, click **Reload** on the extensions page to apply updates.
 
 ## License
 
-ISC
+MIT
