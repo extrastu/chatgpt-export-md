@@ -26,11 +26,11 @@ Save single ChatGPT messages or entire conversation sessions as Markdown (.md) f
 ### 🚀 Regular Users (Direct Installation)
 The latest production build is pre-compiled and tracked under the **`dist`** directory in this repository. You do not need to compile it yourself:
 
-1. Download or clone this repository to your local machine.
+1. Download the [**`chatdown-v0.2.0.zip`**](chatdown-v0.2.0.zip) archive directly from the project root and extract it, or clone this repository to your local machine.
 2. Open your Chromium-based browser (Chrome, Edge, Arc, etc.) and navigate to the extensions management page (e.g. type `chrome://extensions` in Chrome's address bar).
 3. Enable **"Developer mode"** in the top right corner.
 4. Click **"Load unpacked"** in the top left corner.
-5. In the file selection pop-up, select the **`dist`** folder of this project to load and activate the extension!
+5. In the file selection pop-up, select the extracted **`dist`** folder (or the **`dist`** folder inside the project) to load and activate the extension!
 
 ### 🛠️ Developers (Local Building)
 If you wish to modify the source code and rebuild the project (which is built using React + Vite + StyleX):
