@@ -82,6 +82,212 @@ async function exportMarkdown(actionBar, exportBtn) {
   showExportButtonStatus(exportBtn, "已导出");
 }
 
+function showExportDropdown(event, triggerBtn, onExportMarkdown, onExportPng) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  closeAllDropdowns();
+
+  const dropdown = document.createElement("div");
+  dropdown.className = "chatgpt-export-dropdown";
+
+  const mdOption = document.createElement("div");
+  mdOption.className = "chatgpt-export-dropdown-item";
+  mdOption.innerHTML = `
+    <svg viewBox="0 0 24 24" class="icon-md"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+    <span>导出为 Markdown (.md)</span>
+  `;
+  mdOption.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.remove();
+    onExportMarkdown();
+  });
+
+  const pngOption = document.createElement("div");
+  pngOption.className = "chatgpt-export-dropdown-item";
+  pngOption.innerHTML = `
+    <svg viewBox="0 0 24 24" class="icon-png"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+    <span>导出为图片 (.png)</span>
+  `;
+  pngOption.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.remove();
+    onExportPng();
+  });
+
+  dropdown.appendChild(mdOption);
+  dropdown.appendChild(pngOption);
+
+  document.body.appendChild(dropdown);
+
+  const rect = triggerBtn.getBoundingClientRect();
+  
+  // Initially show to get dimensions
+  dropdown.style.display = "flex";
+  dropdown.style.left = "0px";
+  dropdown.style.top = "0px";
+  
+  const dropdownWidth = dropdown.offsetWidth;
+  const dropdownHeight = dropdown.offsetHeight;
+  
+  let top = rect.bottom + window.scrollY + 6;
+  let left = rect.left + window.scrollX;
+
+  if (rect.bottom + dropdownHeight > window.innerHeight + window.scrollY) {
+    top = rect.top + window.scrollY - dropdownHeight - 6;
+  }
+  if (left + dropdownWidth > window.innerWidth + window.scrollX) {
+    left = rect.right + window.scrollX - dropdownWidth;
+  }
+
+  dropdown.style.top = `${top}px`;
+  dropdown.style.left = `${left}px`;
+  
+  // Trigger transition
+  requestAnimationFrame(() => {
+    dropdown.style.opacity = "1";
+    dropdown.style.transform = "scale(1)";
+  });
+
+  setTimeout(() => {
+    document.addEventListener("click", closeAllDropdowns);
+  }, 0);
+}
+
+function closeAllDropdowns() {
+  document.querySelectorAll(".chatgpt-export-dropdown").forEach(el => el.remove());
+  document.removeEventListener("click", closeAllDropdowns);
+}
+
+function downloadPng(canvas, filename) {
+  canvas.toBlob((blob) => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, "image/png");
+}
+
+function renderElementToPng(elementToRender, filename, exportBtn, isSession = false) {
+  showExportButtonStatus(exportBtn, "正在生成...", isSession);
+
+  const container = document.createElement("div");
+  container.className = "chatgpt-export-temp-container " + document.documentElement.className + " " + document.body.className;
+  
+  container.style.position = "absolute";
+  container.style.left = "-9999px";
+  container.style.top = "0";
+  container.style.width = "800px";
+  container.style.padding = "40px";
+  container.style.boxSizing = "border-box";
+  
+  const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+  container.style.backgroundColor = bodyBg || (document.documentElement.classList.contains("dark") ? "#212121" : "#ffffff");
+  
+  const clone = elementToRender.cloneNode(true);
+  
+  clone.querySelectorAll(`
+    .${EXPORT_BTN_CLASS},
+    .${EXPORT_SESSION_BTN_CLASS},
+    .chatgpt-export-dropdown,
+    button,
+    [role="button"],
+    [aria-label*="Copy"],
+    [aria-label*="复制"],
+    .sr-only
+  `).forEach(el => el.remove());
+  
+  container.appendChild(clone);
+  document.body.appendChild(container);
+  
+  setTimeout(() => {
+    html2canvas(container, {
+      useCORS: true,
+      scale: 2,
+      backgroundColor: container.style.backgroundColor,
+      logging: false
+    }).then((canvas) => {
+      downloadPng(canvas, filename);
+      showExportButtonStatus(exportBtn, "已导出", isSession);
+      container.remove();
+    }).catch((err) => {
+      console.error("html2canvas failed:", err);
+      showExportButtonStatus(exportBtn, "导出失败", isSession);
+      container.remove();
+    });
+  }, 200);
+}
+
+function exportMessagePng(turnNode, exportBtn) {
+  const title =
+    document.title
+      ?.replace(/ChatGPT/gi, "")
+      ?.replace(/[\\/:*?"<>|]/g, "")
+      ?.trim() || "chatgpt-message";
+  const filename = `${title}-${Date.now()}.png`;
+
+  renderElementToPng(turnNode, filename, exportBtn, false);
+}
+
+function exportSessionPng(exportBtn) {
+  const turns = document.querySelectorAll('[data-message-author-role]');
+  if (turns.length === 0) {
+    showExportButtonStatus(exportBtn, "未找到会话", true);
+    return;
+  }
+
+  const titleEl = document.querySelector('h1:not([class*="hidden"])') || document.querySelector('[data-testid*="conversation-title"]');
+  const chatTitle = titleEl ? titleEl.textContent.trim() : (document.title?.replace(/ChatGPT/gi, "")?.trim() || "chatgpt-session");
+  const filename = `${chatTitle.replace(/[\\/:*?"<>|]/g, "")}-${Date.now()}.png`;
+
+  const sessionWrapper = document.createElement("div");
+  sessionWrapper.style.display = "flex";
+  sessionWrapper.style.flexDirection = "column";
+  sessionWrapper.style.gap = "24px";
+  
+  const header = document.createElement("div");
+  header.style.borderBottom = "1px solid rgba(127, 127, 127, 0.2)";
+  header.style.paddingBottom = "16px";
+  header.style.marginBottom = "8px";
+  
+  const titleText = document.createElement("h1");
+  titleText.textContent = chatTitle;
+  titleText.style.fontSize = "28px";
+  titleText.style.fontWeight = "bold";
+  titleText.style.margin = "0 0 8px 0";
+  titleText.style.color = "var(--text-primary, inherit)";
+  
+  const footerText = document.createElement("p");
+  footerText.textContent = `ChatGPT 会话导出 • ${new Date().toLocaleString()}`;
+  footerText.style.fontSize = "12px";
+  footerText.style.margin = "0";
+  footerText.style.color = "var(--text-secondary, rgba(127, 127, 127, 0.7))";
+  
+  header.appendChild(titleText);
+  header.appendChild(footerText);
+  sessionWrapper.appendChild(header);
+
+  turns.forEach((turn) => {
+    const clone = turn.cloneNode(true);
+    clone.querySelectorAll(`
+      .${EXPORT_BTN_CLASS},
+      .${EXPORT_SESSION_BTN_CLASS},
+      .chatgpt-export-dropdown,
+      button,
+      [role="button"],
+      [aria-label*="Copy"],
+      [aria-label*="复制"],
+      .sr-only
+    `).forEach(el => el.remove());
+    sessionWrapper.appendChild(clone);
+  });
+
+  renderElementToPng(sessionWrapper, filename, exportBtn, true);
+}
+
 function createExportButton(actionBar) {
   const btn = document.createElement("button");
 
@@ -90,9 +296,20 @@ function createExportButton(actionBar) {
   setExportButtonIcon(btn);
 
   btn.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    exportMarkdown(actionBar, btn);
+    const turnNode = actionBar.closest('[data-message-author-role]') ||
+                     actionBar.closest('article') ||
+                     actionBar.closest('div[data-testid*="turn"]') ||
+                     actionBar.closest('.group\\/conversation-turn');
+
+    showExportDropdown(
+      event,
+      btn,
+      () => exportMarkdown(actionBar, btn),
+      () => {
+        const targetNode = turnNode || actionBar.parentElement?.parentElement || actionBar.parentElement;
+        exportMessagePng(targetNode, btn);
+      }
+    );
   });
 
   return btn;
@@ -286,9 +503,12 @@ function injectSessionExportButton() {
   setExportButtonIcon(btn, true);
 
   btn.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    exportSessionMarkdown(btn);
+    showExportDropdown(
+      event,
+      btn,
+      () => exportSessionMarkdown(btn),
+      () => exportSessionPng(btn)
+    );
   });
 
   headerActions.appendChild(btn);
